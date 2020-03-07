@@ -47,15 +47,17 @@ Run `python test_robot.py` to run the tests for your `robot_sort()` function to 
 Plan:
 Turn on Robot
 When the light is on, robot can start sorting
-Starting sorting (thinking Insertion Sort) from the left to right (starting at the left but moving right!)
+Starting sorting from the left to right (starting at the left but moving right!)
 will need to swap item 
 start at second item, compare (first 2 items) current item to the next item
 compare if held item is greater or less, if greater move to the right (or keep in current location) of the less card
 then move on to the next two items
+if any swaps ar made, robot will need to go through the items again
+
 
 running out of time (sigh)
 
-Last step will be to turn off Robot
+Last step will be to turn off Robot when everything is sorted
 """
 
 
@@ -181,6 +183,13 @@ class SortingRobot:
                 self.swap_item()
                 self.move_right()
                 if self.compare_item() == 1:
+                    self.swap_item()
+                    self.move_left()
+                    self.swap_item()
+                    self.move_right()
+                else:
+                    self.move_left()
+                    self.swap_item()
 
 
 if __name__ == "__main__":
