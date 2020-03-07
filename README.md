@@ -22,7 +22,7 @@ Commit your code regularly and meaningfully. This helps both you (in case you ev
 
 This Sprint Challenge is split into two separate parts that test your ability to analyze and write algorithms.
 
-### Short Answer Questions
+### Short Answer Questions - done
 
 > It is recommended that you spend no more than 1 hour on this portion of the Sprint Challenge.
 

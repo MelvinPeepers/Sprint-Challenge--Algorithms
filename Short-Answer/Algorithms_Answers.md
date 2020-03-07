@@ -29,3 +29,13 @@ return 0
 # I believe this is an O(n) runtime
 
 ## Exercise II
+
+<!-- # almost missed this -->
+
+<!-- Suppose that you have an n-story building and plenty of eggs. Suppose also that an egg gets broken if it is thrown off floor f or higher, and doesn't get broken if dropped off a floor less than floor f. Devise a strategy to determine the value of f such that the number of dropped + broken eggs is minimized.
+
+Write out your proposed algorithm in plain English or pseudocode AND give the runtime complexity of your solution. -->
+
+I would start with a Binary Search which allows us to eliminate a bunch of option. Binary Search has a runtime of O(logn)
+With a Binary Search you'll start in the middle. If the element is smaller then the middle, it can only be on the left of the array. ELSE it's on the right.
+So with this in mind, we could drop the egg in the middle floor, and if it does break, then perform another egg drop at another middle point that's smaller (closer to you as there is less of a drop). If the egg doesn't break, you can drop the egg farther from you (in the middle floor between your first drop the farthest floor).
