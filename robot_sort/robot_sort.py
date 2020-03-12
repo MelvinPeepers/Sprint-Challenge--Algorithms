@@ -5,7 +5,7 @@ You have been given a robot with very basic capabilities:
 
 - It can move left or right.
 - It can pick up an item
-  - If it tries to pick up an item while already holding one, it will swap the items instead.
+- If it tries to pick up an item while already holding one, it will swap the items instead.
 - It can compare the item it's holding to the item in front of it.
 - It can switch a light on its head on or off.
 
@@ -46,8 +46,7 @@ Run `python test_robot.py` to run the tests for your `robot_sort()` function to 
 """
 Plan:
 Turn on Robot
-When the light is on, robot can start sorting
-Starting sorting from the left to right (starting at the left but moving right!)
+Starting sorting from the left to right (starting at the index 0 moving right!)
 will need to swap item 
 start at second item, compare (first 2 items) current item to the next item
 compare if held item is greater or less, if greater move to the right (or keep in current location) of the less card
@@ -59,6 +58,8 @@ running out of time (sigh)
 
 Last step will be to turn off Robot when everything is sorted
 """
+
+# additional info, using selection sort
 
 
 class SortingRobot:
@@ -176,20 +177,53 @@ class SortingRobot:
         """
         # Fill this out
 
-        self.set_light_on()  # enable robot
-        # print("Number 5 is ALIVE!")
-        while self.light_is_on():  # is true
+        while not self.light_is_on():  # when the light isn't on turn on
+            self.set_light_on()  # enable robot Turn on the robot's light
+            # print("Number 5 is ALIVE!")
+
             while self.can_move_right():
-                self.swap_item()
-                self.move_right()
-                if self.compare_item() == 1:
+                # print('Move to the right')
+                self.swap_item()  # picks up card at index 0
+                self.move_right()  # move to the next card
+
+                if self.compare_item() == 1:  # checks to see if the card is higher then the one being looked at by the robot. If the card is smaller, go to 'else:'
+                    # The robot swaps its currently held item with the list item in front of it. This will increment the time counter by 1.
                     self.swap_item()
+                    # If the robot can move to the left, it moves to the left and returns True. Otherwise, it stays in place and returns False. This will increment the time counter by 1.
                     self.move_left()
+                    # The robot swaps its currently held item with the list item in front of it.
                     self.swap_item()
-                    self.move_right()
                 else:
+                    # If the robot can move to the left, it moves to the left and returns True. Otherwise, it stays in place and returns False. This will increment the time counter by 1.
                     self.move_left()
+                    # The robot swaps its currently held item with the list item in front of it.
                     self.swap_item()
+                    # If the robot can move to the right, it moves to the right and returns True. Otherwise, it stays in place and returns False. This will increment the time counter by 1. if card is lower, it's placed down in the original spot. if bigger, the cards are changed
+                    self.move_right()
+            # Returns True if the robot can move left or False if it's at the start of the list.
+
+            while self.can_move_left():
+                # print('Move to the left')
+                # The robot swaps its currently held item with the list item in front of it.
+                self.swap_item()
+                # If the robot can move to the left, it moves to the left and returns True. Otherwise, it stays in place and returns False. This will increment the time counter by 1.
+                self.move_left()
+
+                if self.compare_item() == -1:  # checks to see if the card is smaller then the one being looked at by the robot
+                    self.set_light_off()  # Turn off the robot's light
+                    # The robot swaps its currently held item with the list item in front of it.
+                    self.swap_item()
+                    # If the robot can move to the right, it moves to the right and returns True. Otherwise, it stays in place and returns False. This will increment the time counter by 1.
+                    self.move_right()
+                    # The robot swaps its currently held item with the list item in front of it.
+                    self.swap_item()
+                else:
+                    # If the robot can move to the right, it moves to the right and returns True. Otherwise, it stays in place and returns False. This will increment the time counter by 1.
+                    self.move_right()
+                    # The robot swaps its currently held item with the list item in front of it.
+                    self.swap_item()
+                    # If the robot can move to the left, it moves to the left and returns True. Otherwise, it stays in place and returns False. This will increment the time counter by 1.
+                    self.move_left()
 
 
 if __name__ == "__main__":
@@ -199,7 +233,15 @@ if __name__ == "__main__":
     l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1,
          45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
 
-    robot = SortingRobot(l)
+    t = [9, 11, 7, 17, 29]  # my test 7, 9, 11, 17, 29
+    p = [5, 4, 3, 2, 1]  # my test 1, 2, 3, 4, 5
+    # my test 1, 4, 9, 13, 22, 23, 50, 100, 111
+    m = [100, 1, 4, 9, 111, 50, 23, 22, 13]
+    z = [0]
+    x = []
+    robot = SortingRobot(t)
+
+    # all my little test pass
 
     robot.sort()
     print(robot._list)
